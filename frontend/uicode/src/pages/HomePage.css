@@ -1,0 +1,74 @@
+.homepage-container {
+  padding: 1.5rem;
+  background: linear-gradient(270deg, #2f1d24, #3f1532, #1b0a10, #4b2736, #2f1d24);
+  background-size: 1000% 1000%;
+  animation: gradientShift 20s ease infinite;
+}
+
+/* Doctor grid layout */
+.homepage-container .doctor-grid {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+  min-height: 400px;
+  
+}
+
+@media (min-width: 640px) {
+  .homepage-container .doctor-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 768px) {
+  .homepage-container .doctor-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .homepage-container .doctor-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* Gradient border wrapper */
+.homepage-container .doctor-grid > div {
+  position: relative;
+  padding: 2px; /* for border effect */
+  border-radius: 16px;
+  background: linear-gradient(135deg, #6a11cb, #2575fc);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+  
+}
+
+.homepage-container .doctor-grid > div:hover {
+  transform: translateY(-6px);
+}
+
+/* Inner white card */
+.homepage-container .doctor-grid > div > div {
+  background: rgb(18, 1, 1);
+  color: #703de9;
+  border-radius: 14px;
+  padding: 16px;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* Gradient animation */
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}

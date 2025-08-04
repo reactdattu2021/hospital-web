@@ -1,0 +1,38 @@
+html,
+body,
+#root {
+  height: 100%;
+}
+
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+body {
+  height: 100%;
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(270deg, #2f1d24, #3f1532, #1b0a10, #4b2736, #2f1d24);
+  background-size: 1000% 1000%;
+  animation: gradientShift 20s ease infinite;
+  color: #f3f4f6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+body::before {
+  content: '';
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0, 0, 0, 0.25);
+  pointer-events: none;
+  z-index: 0;
+}

@@ -1,0 +1,21 @@
+.appointment-form {
+  max-width: 600px;
+  color: black;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  background-color: #f8f9fa;
+}
+
+.appointment-form h2 {
+  margin-bottom: 20px;
+}
+
+.appointment-form .form-group {
+  margin-bottom: 15px;
+}
+
+.appointment-form button {
+  width: 100%;
+}

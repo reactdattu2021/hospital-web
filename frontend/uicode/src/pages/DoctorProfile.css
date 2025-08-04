@@ -1,0 +1,61 @@
+.doctor-profile-container {
+  padding: 2rem;
+  background: linear-gradient(270deg, #2f1d24, #3f1532, #1b0a10, #4b2736, #2f1d24);
+  background-size: 1000% 1000%;
+  animation: gradientShift 20s ease infinite;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+}
+
+.doctor-profile-box {
+  background: white;
+  padding: 2px;
+  max-width: 700px;
+  width: 100%;
+  border-radius: 16px;
+  border: 0.5px solid transparent;
+  background-image:
+    linear-gradient(white, white),
+    linear-gradient(to right, #00c6ff, #0072ff);
+   background-origin: border-box;
+  background-clip: content-box, border-box;  
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.doctor-profile-box:hover {
+  transform: translateY(-4px);
+}
+
+.doctor-name {
+  font-size: 2rem;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 1rem;
+  color: #222;
+}
+
+.doctor-image {
+  display: block;
+  margin: 0 auto 1.5rem auto;
+  width: 220px;
+  height: 220px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 3px solid #00c6ff;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.1);
+}
+
+.doctor-bio {
+  text-align: center;
+  font-size: 1rem;
+  color: #0e0d0d;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+  padding: 0 1rem;
+}
+.appointment-section {
+  margin-bottom: 1.5rem;
+}

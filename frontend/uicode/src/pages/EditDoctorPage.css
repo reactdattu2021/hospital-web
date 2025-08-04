@@ -1,0 +1,120 @@
+/* EditDoctorPage.css */
+
+.edit-doctor-page {
+  max-width: 700px;
+  margin: 60px auto;
+  padding: 40px 30px;
+  background: linear-gradient(to right, #32071d, #2b1e22);
+  border-radius: 16px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+  animation: fadeInUp 0.4s ease;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+@keyframes fadeInUp {
+  from {
+    transform: translateY(25px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0px);
+    opacity: 1;
+  }
+}
+
+.edit-doctor-page h1 {
+  text-align: center;
+  font-size: 32px;
+  font-weight: 600;
+  color: #0d6efd;
+  margin-bottom: 30px;
+  position: relative;
+}
+
+.edit-doctor-page h1::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: -10px;
+  height: 3px;
+  width: 60px;
+  background-color: #dc3545;
+  border-radius: 2px;
+}
+
+/* Form Elements */
+.edit-doctor-page form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.edit-doctor-page input,
+.edit-doctor-page textarea,
+.edit-doctor-page select {
+  padding: 12px 16px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.edit-doctor-page input:focus,
+.edit-doctor-page textarea:focus,
+.edit-doctor-page select:focus {
+  border-color: #dc3545;
+  box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.15);
+  outline: none;
+}
+
+/* Button Group */
+.form-buttons {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 10px;
+}
+
+.submit-btn,
+.cancel-btn {
+  flex: 1;
+  padding: 12px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: transform 0.2s ease, background-color 0.3s ease;
+}
+
+.submit-btn {
+  background-color: #dc3545;
+  color: white;
+}
+
+.submit-btn:hover {
+  background-color: #bb2d3b;
+  transform: scale(1.03);
+}
+
+.cancel-btn {
+  background-color: #e0e0e0;
+  color: #333;
+}
+
+.cancel-btn:hover {
+  background-color: #cacaca;
+  transform: scale(1.03);
+}
+
+/* Responsive */
+@media screen and (max-width: 600px) {
+  .edit-doctor-page {
+    padding: 25px 20px;
+  }
+
+  .form-buttons {
+    flex-direction: column;
+  }
+}

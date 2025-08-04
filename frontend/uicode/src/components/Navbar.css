@@ -1,0 +1,41 @@
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 60px;
+  background: linear-gradient(270deg, #2f1d24, #3f1532, #1b0a10, #4b2736, #2f1d24);
+  background-size: 1000% 1000%;
+  animation: gradientShift 20s ease infinite;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  z-index: 1000;
+}
+
+.navbar-left {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-logo {
+  font-size: 30px;
+  margin-right: 8px;
+}
+
+.navbar-title {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.navbar-links a {
+  color: white;
+  text-decoration: none;
+  margin-left: 20px;
+  font-weight: 500;
+}
+
+.navbar-links a:hover {
+  text-decoration: underline;
+}
