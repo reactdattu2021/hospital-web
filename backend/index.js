@@ -1,3 +1,5 @@
+const upload = require("./middleware/upload"); // ✅ Add this at the top
+const cloudinary = require("./utils/cloudinary");
 require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
@@ -30,17 +32,68 @@ seedDatabase();
 
 // CRUD operations for Doctors (Admin functionality)
 
-// POST: Add a new doctor
-app.post("/doctors", async (req, res) => {
-  // In a real-world app, you would add authentication here
+// POST: Add a new doctor with image upload
+app.post("/doctors", upload.single("profileImage"), async (req, res) => {
   try {
-    const newDoctor = new Doctor(req.body);
+    let imageUrl = "";
+
+    if (req.file) {
+      const b64 = Buffer.from(req.file.buffer).toString("base64");
+      const dataURI = `data:${req.file.mimetype};base64,${b64}`;
+      const result = await cloudinary.uploader.upload(dataURI, {
+        folder: "doctors",
+      });
+      imageUrl = result.secure_url;
+    } else {
+      return res.status(400).json({ message: "Profile image is required" });
+    }
+
+    const newDoctor = new Doctor({
+      ...req.body,
+      profileImage: imageUrl,
+    });
+
     await newDoctor.save();
     res.status(201).json(newDoctor);
   } catch (error) {
+    console.error(error);
     res.status(500).json({ message: "Error adding doctor", error });
   }
 });
+app.put(
+  "/doctors/:id/image",
+  upload.single("profileImage"),
+  async (req, res) => {
+    try {
+      const doctor = await Doctor.findOne({ id: req.params.id });
+
+      if (!doctor) {
+        return res.status(404).json({ message: "Doctor not found" });
+      }
+
+      if (!req.file) {
+        return res.status(400).json({ message: "No image uploaded" });
+      }
+
+      const b64 = Buffer.from(req.file.buffer).toString("base64");
+      const dataURI = `data:${req.file.mimetype};base64,${b64}`;
+      const result = await cloudinary.uploader.upload(dataURI, {
+        folder: "doctors",
+      });
+
+      doctor.profileImage = result.secure_url;
+      await doctor.save();
+
+      res.status(200).json({
+        message: "Doctor image updated successfully",
+        profileImage: doctor.profileImage,
+      });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: "Error updating image", error });
+    }
+  }
+);
 
 // PUT: Update an existing doctor
 app.put("/doctors/:id", async (req, res) => {
