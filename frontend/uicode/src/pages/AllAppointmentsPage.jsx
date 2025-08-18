@@ -54,3 +54,4 @@ const AllAppointmentsPage = () => {
 };
 
 export default AllAppointmentsPage;
+

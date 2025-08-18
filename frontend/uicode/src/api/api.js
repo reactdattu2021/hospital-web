@@ -84,3 +84,4 @@ export const getAppointments = async () => {
     throw error.response?.data || { message: "Error fetching appointments" };
   }
 };
+

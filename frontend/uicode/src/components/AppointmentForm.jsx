@@ -102,3 +102,4 @@ const AppointmentForm = ({ doctorId }) => {
 };
 
 export default AppointmentForm;
+

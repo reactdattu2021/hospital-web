@@ -25,3 +25,4 @@ const AddDoctorPage = () => {
 };
 
 export default AddDoctorPage;
+

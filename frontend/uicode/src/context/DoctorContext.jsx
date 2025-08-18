@@ -21,3 +21,4 @@ export const DoctorProvider = ({ children }) => {
     </DoctorContext.Provider>
   );
 };
+

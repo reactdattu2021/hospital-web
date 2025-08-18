@@ -110,3 +110,4 @@ const EditDoctorPage = () => {
 };
 
 export default EditDoctorPage;
+
