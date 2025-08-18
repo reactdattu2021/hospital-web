@@ -1,4 +1,5 @@
-const upload = require("./middleware/upload"); // ✅ Add this at the top
+const upload = require("./middleware/upload");
+const { v4: uuidv4 } = require('uuid'); // ✅ Add this at the top
 const cloudinary = require("./utils/cloudinary");
 require("dotenv").config();
 const express = require("express");
@@ -33,85 +34,101 @@ seedDatabase();
 // CRUD operations for Doctors (Admin functionality)
 
 // POST: Add a new doctor with image upload
+// POST /doctors route
 app.post("/doctors", upload.single("profileImage"), async (req, res) => {
   try {
-    let imageUrl = "";
+    const { name, specialization, bio } = req.body;
 
-    if (req.file) {
-      const b64 = Buffer.from(req.file.buffer).toString("base64");
-      const dataURI = `data:${req.file.mimetype};base64,${b64}`;
-      const result = await cloudinary.uploader.upload(dataURI, {
-        folder: "doctors",
-      });
-      imageUrl = result.secure_url;
-    } else {
-      return res.status(400).json({ message: "Profile image is required" });
+    let availability = [];
+    if (req.body.availability) {
+      availability = JSON.parse(req.body.availability);
     }
 
+    if (!req.file) {
+      return res.status(400).json({ error: "No image file uploaded" });
+    }
+
+    // Convert buffer to base64 & upload
+    const base64 = req.file.buffer.toString("base64");
+    const dataURI = `data:${req.file.mimetype};base64,${base64}`;
+    const uploadResult = await cloudinary.uploader.upload(dataURI);
+
+    // Generate UUID for doctor id
+    const uuidId = uuidv4();
+
     const newDoctor = new Doctor({
-      ...req.body,
-      profileImage: imageUrl,
+      id: uuidId,
+      name,
+      specialization,
+      bio,
+      profileImage: uploadResult.secure_url,
+      availability,
     });
 
     await newDoctor.save();
     res.status(201).json(newDoctor);
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Error adding doctor", error });
+    console.error("Create doctor error:", error);
+    res.status(500).json({ error: "Failed to create doctor" });
   }
 });
-app.put(
-  "/doctors/:id/image",
-  upload.single("profileImage"),
-  async (req, res) => {
-    try {
-      const doctor = await Doctor.findOne({ id: req.params.id });
 
-      if (!doctor) {
-        return res.status(404).json({ message: "Doctor not found" });
-      }
 
-      if (!req.file) {
-        return res.status(400).json({ message: "No image uploaded" });
-      }
-
-      const b64 = Buffer.from(req.file.buffer).toString("base64");
-      const dataURI = `data:${req.file.mimetype};base64,${b64}`;
-      const result = await cloudinary.uploader.upload(dataURI, {
-        folder: "doctors",
-      });
-
-      doctor.profileImage = result.secure_url;
-      await doctor.save();
-
-      res.status(200).json({
-        message: "Doctor image updated successfully",
-        profileImage: doctor.profileImage,
-      });
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: "Error updating image", error });
-    }
-  }
-);
-
-// PUT: Update an existing doctor
+// Update doctor text info (no image)
 app.put("/doctors/:id", async (req, res) => {
-  // In a real-world app, you would add authentication here
   try {
+    console.log("Updating doctor id:", req.params.id);
+    console.log("Payload:", req.body);
+
     const updatedDoctor = await Doctor.findOneAndUpdate(
       { id: req.params.id },
       req.body,
-      { new: true }
+      { new: true, runValidators: true }
     );
+
     if (!updatedDoctor) {
       return res.status(404).json({ message: "Doctor not found" });
     }
+
     res.json(updatedDoctor);
   } catch (error) {
+    console.error("Error updating doctor:", error);
     res.status(500).json({ message: "Error updating doctor", error });
   }
 });
+
+// Update doctor profile image only
+app.put("/doctors/:id/image", upload.single("profileImage"), async (req, res) => {
+  try {
+    const doctor = await Doctor.findOne({ id: req.params.id });
+
+    if (!doctor) {
+      return res.status(404).json({ message: "Doctor not found" });
+    }
+
+    if (!req.file) {
+      return res.status(400).json({ message: "No image uploaded" });
+    }
+
+    const base64 = req.file.buffer.toString("base64");
+    const dataURI = `data:${req.file.mimetype};base64,${base64}`;
+    const result = await cloudinary.uploader.upload(dataURI, {
+      folder: "doctors",
+    });
+
+    doctor.profileImage = result.secure_url;
+    await doctor.save();
+
+    res.status(200).json({
+      message: "Doctor image updated successfully",
+      profileImage: doctor.profileImage,
+    });
+  } catch (error) {
+    console.error("Error updating image:", error);
+    res.status(500).json({ message: "Error updating image", error });
+  }
+});
+
 
 // DELETE: Remove a doctor
 app.delete("/doctors/:id", async (req, res) => {
