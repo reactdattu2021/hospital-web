@@ -18,9 +18,7 @@ const HomePage = () => {
       <SearchBar value={search} onSearch={handleSearch} />
       <div className="doctor-grid">
         {doctors.map((doc) => (
-          <div key={doc.id}>
-            <DoctorCard doctor={doc} />
-          </div>
+          <DoctorCard key={doc._id || doc.id} doctor={doc} />
         ))}
       </div>
     </div>

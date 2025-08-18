@@ -5,12 +5,66 @@
   border: 1px solid #ccc;
   border-radius: 12px;
   background-color: #f1f1f1;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  font-family: Arial, sans-serif;
 }
 
 .doctor-form h3 {
   margin-bottom: 20px;
+  color: #333;
+  text-align: center;
 }
 
 .doctor-form .form-group {
   margin-bottom: 15px;
+  display: flex;
+  flex-direction: column;
+}
+
+.doctor-form label {
+  margin-bottom: 6px;
+  font-weight: 600;
+  color: #444;
+}
+
+.doctor-form input[type="text"],
+.doctor-form input[type="date"],
+.doctor-form input[type="file"],
+.doctor-form textarea {
+  padding: 8px 12px;
+  border: 1px solid #bbb;
+  border-radius: 6px;
+  font-size: 16px;
+  transition: border-color 0.3s ease;
+}
+
+.doctor-form input[type="text"]:focus,
+.doctor-form input[type="date"]:focus,
+.doctor-form input[type="file"]:focus,
+.doctor-form textarea:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+.doctor-form textarea {
+  resize: vertical;
+}
+
+.btn-submit {
+  display: block;
+  width: 100%;
+  background-color: #28a745;
+  color: white;
+  font-size: 18px;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 20px;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.btn-submit:hover {
+  background-color: #17a235;
 }

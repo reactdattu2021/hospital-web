@@ -1,7 +1,6 @@
 import axios from 'axios';
 
-// const API_URL = 'http://localhost:3000';
-const API_URL = 'https://hospital-web-api.onrender.com';
+const API_URL = 'http://localhost:3000';
 
 // ============================
 // 🚑 Doctor Endpoints
@@ -27,23 +26,33 @@ export const getDoctorById = async (id) => {
   }
 };
 
-export const createDoctor = async (doctor) => {
+export const createDoctor = async (formData) => {
   try {
-    const response = await axios.post(`${API_URL}/doctors`, doctor);
+    const response = await axios.post(`${API_URL}/doctors`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
     return response.data;
   } catch (error) {
     throw error.response?.data || { message: "Error creating doctor" };
   }
 };
 
-export const updateDoctor = async (id, doctor) => {
+
+export const updateDoctor = async (id, formData) => {
   try {
-    const response = await axios.put(`${API_URL}/doctors/${id}`, doctor);
+    const response = await axios.put(`${API_URL}/doctors/${id}`, formData, {
+      headers: {
+        'Content-Type': 'application/json', // <<-- change here
+      },
+    });
     return response.data;
   } catch (error) {
     throw error.response?.data || { message: "Error updating doctor" };
   }
 };
+
 
 export const deleteDoctor = async (id) => {
   try {

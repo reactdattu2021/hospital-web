@@ -47,7 +47,7 @@ const AdminPage = () => {
         <div className="doctor-actions"><strong>Delete</strong></div>
 
         {doctors.map((doc) => (
-          <React.Fragment key={doc.id}>
+          <React.Fragment key={doc._id || doc.id}>
             <img
               src={doc.profileImage || "https://via.placeholder.com/150"}
               alt={doc.name}

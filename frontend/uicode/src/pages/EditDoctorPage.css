@@ -1,26 +1,48 @@
-/* EditDoctorPage.css */
-
 .edit-doctor-page {
+  position: relative;
   max-width: 700px;
   margin: 60px auto;
   padding: 40px 30px;
   background: linear-gradient(to right, #32071d, #2b1e22);
   border-radius: 16px;
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
-  animation: fadeInUp 0.4s ease;
   font-family: 'Segoe UI', sans-serif;
+  z-index: 0;
+  overflow: hidden;
 }
 
-@keyframes fadeInUp {
-  from {
-    transform: translateY(25px);
-    opacity: 0;
+/* The animated gradient border using a ::before pseudo-element */
+.edit-doctor-page::before {
+  content: "";
+  position: absolute;
+  top: -3px; bottom: -3px;
+  left: -3px; right: -3px;
+  border-radius: 20px; /* slightly bigger to cover the border area */
+  background: linear-gradient(270deg, #63404c, #2a262f, #370f23, #41242e);
+  background-size: 600% 600%;
+  animation: gradientShift 8s ease infinite;
+  z-index: -1; /* behind the container */
+}
+
+/* Inner background to cover the before element except border */
+.edit-doctor-page > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* You can keep your keyframes as-is */
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
   }
-  to {
-    transform: translateY(0px);
-    opacity: 1;
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
   }
 }
+
 
 .edit-doctor-page h1 {
   text-align: center;
@@ -107,6 +129,49 @@
   background-color: #cacaca;
   transform: scale(1.03);
 }
+.image-upload-wrapper {
+  display: flex;
+  flex-direction: row; /* changed to row */
+  align-items: center;
+  border: 3px solid #562e2e; /* thicker red border */
+  border-radius: 12px;
+  padding: 15px 20px;
+  max-width: 480px; /* adjust width for row */
+  gap: 30px; /* space between image and button */
+  margin-bottom: 10px;
+  background: linear-gradient(135deg, #32071d, #2b1e22);
+  box-shadow: 0 4px 8px rgba(220, 53, 69, 0.3);
+}
+.upload-image{
+  background: linear-gradient(135deg, #32071d, #2b1e22);
+  color: #fff3f3;
+
+}
+
+.profile-image {
+  width: 180px;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 10px;
+  border: 1px solid #fff3f3;
+}
+
+.file-input-label {
+  padding: 12px 24px;
+  background-color: #dc3545;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  user-select: none;
+  transition: background-color 0.3s ease;
+  white-space: nowrap;
+}
+
+.file-input-label:hover {
+  background-color: #bb2d3b;
+}
+
 
 /* Responsive */
 @media screen and (max-width: 600px) {

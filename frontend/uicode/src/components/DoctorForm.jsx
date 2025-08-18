@@ -3,17 +3,22 @@ import './DoctorForm.css';
 
 const DoctorForm = ({ onSubmit, initialData = {} }) => {
   const [formData, setFormData] = useState({
-    id: initialData.id || '',
     name: initialData.name || '',
     specialization: initialData.specialization || '',
-    profileImage: initialData.profileImage || '',
     bio: initialData.bio || '',
     date: '',
     slots: '',
   });
 
+  const [imageFile, setImageFile] = useState(null);
+  
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleFileChange = (e) => {
+    setImageFile(e.target.files[0]);
   };
 
   const handleSubmit = (e) => {
@@ -28,44 +33,41 @@ const DoctorForm = ({ onSubmit, initialData = {} }) => {
         ]
       : [];
 
-    const doctorPayload = {
-      id: formData.id,
-      name: formData.name,
-      specialization: formData.specialization,
-      profileImage: formData.profileImage,
-      bio: formData.bio,
-      availability,
-    };
+    if (initialData && initialData.name) {
+      // Editing existing doctor - send JSON (no image here)
+      onSubmit({
+        name: formData.name,
+        specialization: formData.specialization,
+        bio: formData.bio,
+        availability,
+      });
+    } else {
+      // Adding new doctor - send FormData with image
+      if (!imageFile) {
+        alert("Please upload a profile image");
+        return;
+      }
+      const payload = new FormData();
+      payload.append('name', formData.name);
+      payload.append('specialization', formData.specialization);
+      payload.append('bio', formData.bio);
+      payload.append('availability', JSON.stringify(availability));
+      payload.append('profileImage', imageFile);
 
-    onSubmit(doctorPayload);
+      onSubmit(payload);
+    }
   };
 
   return (
     <form onSubmit={handleSubmit} className="doctor-form">
-      <h3>{initialData.id ? 'Edit Doctor' : 'Add Doctor'}</h3>
-
-      <div className="form-group">
-        <label>ID</label>
-        <input
-          type="text"
-          name="id"
-          value={formData.id}
-          onChange={handleChange}
-          className="form-control"
-          placeholder="Enter unique doctor ID"
-          required
-        />
-      </div>
+      <h3>{initialData.name ? 'Edit Doctor' : 'Add Doctor'}</h3>
 
       <div className="form-group">
         <label>Name</label>
         <input
-          type="text"
           name="name"
           value={formData.name}
           onChange={handleChange}
-          className="form-control"
-          placeholder="Enter full name"
           required
         />
       </div>
@@ -73,28 +75,25 @@ const DoctorForm = ({ onSubmit, initialData = {} }) => {
       <div className="form-group">
         <label>Specialization</label>
         <input
-          type="text"
           name="specialization"
           value={formData.specialization}
           onChange={handleChange}
-          className="form-control"
-          placeholder="e.g., Cardiologist, Dentist"
           required
         />
       </div>
 
-      <div className="form-group">
-        <label>Profile Image URL</label>
-        <input
-          type="text"
-          name="profileImage"
-          value={formData.profileImage}
-          onChange={handleChange}
-          className="form-control"
-          placeholder="Paste image URL here"
-          required
-        />
-      </div>
+      {/* Show file input only when adding */}
+      {!initialData.name && (
+        <div className="form-group">
+          <label>Profile Image</label>
+          <input
+            type="file"
+            accept="image/*"
+            onChange={handleFileChange}
+            required={!initialData.name}
+          />
+        </div>
+      )}
 
       <div className="form-group">
         <label>Bio</label>
@@ -102,9 +101,6 @@ const DoctorForm = ({ onSubmit, initialData = {} }) => {
           name="bio"
           value={formData.bio}
           onChange={handleChange}
-          className="form-control"
-          rows={3}
-          placeholder="Short bio about the doctor"
           required
         />
       </div>
@@ -116,26 +112,20 @@ const DoctorForm = ({ onSubmit, initialData = {} }) => {
           name="date"
           value={formData.date}
           onChange={handleChange}
-          className="form-control"
-          placeholder="Select availability date"
         />
       </div>
 
       <div className="form-group">
         <label>Time Slots (comma separated)</label>
         <input
-          type="text"
           name="slots"
           value={formData.slots}
           onChange={handleChange}
-          className="form-control"
           placeholder="e.g., 10:00, 11:00, 14:00"
         />
       </div>
 
-      <button type="submit" className="btn btn-success mt-3">
-        {initialData.id ? 'Update' : 'Create'}
-      </button>
+      <button type="submit">{initialData.name ? 'Update' : 'Create'}</button>
     </form>
   );
 };

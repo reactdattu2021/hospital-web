@@ -11,17 +11,16 @@ const AddDoctorPage = () => {
     try {
       await createDoctor(formData);
       alert("Doctor added successfully!");
-      navigate("/admin"); // Redirect back to admin doctor list
+      navigate("/admin");
     } catch (error) {
       alert(error.message || "Failed to add doctor");
     }
   };
 
   return (
-    <div className="add-doctor-container">
-      <h1>Add New Doctor</h1>
-      <DoctorForm onSubmit={handleAddDoctor} />
-    </div>
+    <div className="add-doctor-page">
+    <DoctorForm onSubmit={handleAddDoctor} />
+  </div>
   );
 };
 

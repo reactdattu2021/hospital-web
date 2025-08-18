@@ -11,8 +11,7 @@
   grid-template-columns: repeat(1, 1fr);
   gap: 1.5rem;
   margin-top: 1.5rem;
-  min-height: 400px;
-  
+  min-height: 500px;
 }
 
 @media (min-width: 640px) {
@@ -33,31 +32,79 @@
   }
 }
 
-/* Gradient border wrapper */
-.homepage-container .doctor-grid > div {
+/* Main doctor card container */
+.homepage-container .doctor-card {
   position: relative;
-  padding: 2px; /* for border effect */
+  padding: 20px;
   border-radius: 16px;
   background: linear-gradient(135deg, #6a11cb, #2575fc);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
   transition: transform 0.3s ease;
-  
-}
-
-.homepage-container .doctor-grid > div:hover {
-  transform: translateY(-6px);
-}
-
-/* Inner white card */
-.homepage-container .doctor-grid > div > div {
-  background: rgb(18, 1, 1);
-  color: #703de9;
-  border-radius: 14px;
-  padding: 16px;
-  min-height: 100%;
+  height: 500px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  overflow: hidden;
+}
+
+/* Card hover effect */
+.homepage-container .doctor-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 30px rgba(106, 17, 203, 0.4);
+}
+
+/* Doctor name at the very top */
+.homepage-container .doctor-card h5 {
+  position: relative;
+  z-index: 2;
+  font-size: 1.4rem;
+  font-weight: bold;
+  text-align: center;
+  margin: 0 0 15px 0;
+  color: #ffffff;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.6);
+  padding: 12px;
+  border-radius: 8px;
+  backdrop-filter: blur(5px);
+}
+
+/* Hide specialty completely */
+.homepage-container .doctor-card .specialty {
+  display: none;
+}
+
+/* Image container - takes up middle space */
+.homepage-container .doctor-card {
+  /* Remove background image from inline styles and use proper img tag instead */
+  background-image: none !important;
+}
+
+/* View Profile button at the bottom */
+.homepage-container .doctor-card .btn {
+  position: relative;
+  z-index: 2;
+  margin-top: auto; /* This pushes button to bottom */
+  padding: 14px 20px;
+  background: linear-gradient(135deg, #28a745, #20c997);
+  color: white;
+  text-decoration: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 600;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+  border: none;
+  box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3);
+}
+
+.homepage-container .doctor-card .btn:hover {
+  background: linear-gradient(135deg, #218838, #1ea085);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(40, 167, 69, 0.5);
+  text-decoration: none;
+  color: white;
 }
 
 /* Gradient animation */
