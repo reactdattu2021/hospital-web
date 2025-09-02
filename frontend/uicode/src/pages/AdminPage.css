@@ -154,3 +154,79 @@
 .admin-container .doctor-actions button:last-child:hover {
   background-color: #ffcaca;
 }
+@media (max-width: 576px) {
+  /* REMOVE or COMMENT OUT this block */
+/* .admin-container .doctor-grid > div.doctor-info strong,
+.admin-container .doctor-grid > div.doctor-actions strong {
+  display: none;
+} */
+
+    /* Increase doctor image size */
+  .admin-container .doctor-image {
+    width: 200px;
+    height: 200px;
+    padding: 5px;
+  }
+
+
+
+  .admin-header {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 1rem;
+  }
+
+  .admin-header h1 {
+    font-size: 1.5rem;
+  }
+
+  .admin-header button {
+    width: 100%;
+    font-size: 1rem;
+  }
+
+  .form-container {
+    padding: 1rem;
+  }
+
+  .admin-container .doctor-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    border: none;
+  }
+
+  .admin-container .doctor-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 1rem;
+    background: white;
+  }
+
+  .admin-container .doctor-image {
+    width: 120px;
+    height: 120px;
+    margin-bottom: 1rem;
+    margin-top: 10px;
+  }
+
+  .admin-container .doctor-info {
+    padding: 0.5rem;
+    text-align: center;
+  }
+
+  .admin-container .doctor-actions {
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 0.5rem;
+  }
+
+  .admin-container .doctor-actions button {
+    width: 100%;
+    font-size: 0.9rem;
+  }
+}

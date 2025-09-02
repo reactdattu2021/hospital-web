@@ -6,6 +6,17 @@ import "./AdminPage.css";
 const AdminPage = () => {
   const [doctors, setDoctors] = useState([]);
   const navigate = useNavigate();
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 576);
+    };
+
+    handleResize(); // Initial check
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const fetchDoctors = async () => {
     try {
@@ -40,11 +51,25 @@ const AdminPage = () => {
       </div>
 
       <div className="doctor-grid">
-        <div className="doctor-info"><strong>Image</strong></div>
-        <div className="doctor-info"><strong>Name</strong></div>
-        <div className="doctor-info"><strong>Specialization</strong></div>
-        <div className="doctor-actions"><strong>Edit</strong></div>
-        <div className="doctor-actions"><strong>Delete</strong></div>
+        {!isMobile && (
+          <>
+            <div className="doctor-info">
+              <strong>Image</strong>
+            </div>
+            <div className="doctor-info">
+              <strong>Name</strong>
+            </div>
+            <div className="doctor-info">
+              <strong>Specialization</strong>
+            </div>
+            <div className="doctor-actions">
+              <strong>Edit</strong>
+            </div>
+            <div className="doctor-actions">
+              <strong>Delete</strong>
+            </div>
+          </>
+        )}
 
         {doctors.map((doc) => (
           <React.Fragment key={doc._id || doc.id}>
@@ -60,7 +85,9 @@ const AdminPage = () => {
               <p>{doc.specialization}</p>
             </div>
             <div className="doctor-actions">
-              <button onClick={() => navigate(`/admin/edit/${doc.id}`)}>Edit</button>
+              <button onClick={() => navigate(`/admin/edit/${doc.id}`)}>
+                Edit
+              </button>
             </div>
             <div className="doctor-actions">
               <button onClick={() => handleDelete(doc.id)}>Delete</button>
@@ -73,4 +100,3 @@ const AdminPage = () => {
 };
 
 export default AdminPage;
-

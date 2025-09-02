@@ -19,4 +19,13 @@
 .appointment-form button {
   width: 100%;
 }
+@media (max-width: 576px) {
+  .appointment-form {
+    padding: 10px;
+  }
+
+  .appointment-form h2 {
+    font-size: 1.5rem;
+  }
+}
 

@@ -8,7 +8,7 @@ const Navbar = () => {
     <nav className="navbar">
       <div className="navbar-left">
         <FaHospitalSymbol className="navbar-logo" />
-        <span className="navbar-title">Niroggyan Hospital</span>
+        <span className="navbar-title">OralVisHealthcare</span>
       </div>
       <div className="navbar-links">
         <Link to="/">Home</Link>
