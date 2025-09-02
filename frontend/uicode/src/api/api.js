@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:3000';
+const API_URL = 'https://hospital-web-api.onrender.com';
 
 // ============================
 // 🚑 Doctor Endpoints
